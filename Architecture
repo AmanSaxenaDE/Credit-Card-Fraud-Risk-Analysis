@@ -34,7 +34,7 @@
                            |  (Airflow DAG)            	|
                            |  - File Sensor           	|
                            |  - Run spark               |
-			                     |  - move file to archive    |     	        
+			   |  - move file to archive    |     	        
                            |                            |
                            +----------+-----------------+
                                       |
@@ -47,7 +47,7 @@
                            |  - Processes daily     |
                            |    transactions        |
                            |  - Append data         |
-			                     |	  in BigQuery         |
+			   |	in BigQuery         |
                            |    table               |
                            |                        |
                            +----------+-------------+
