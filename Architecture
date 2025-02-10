@@ -1,0 +1,61 @@
+                           +---------------------+
+                           |                     |
+                           |     BigQuery        |
+                           | (Static Cardholders |
+                           |       Table)        |
+                           |                     |
+                           +----------+----------+
+                                      ^
+                                      |  (Big query table created with source as GCP bucket - customers)
+                                      |
+                           +----------+----------+
+                           |                     |
+                           |     GCS Bucket      |
+                           |    (File Storage)   |
+                           |                     |
+                           |  +---------------+  |
+                           |  | Customer-data |  |  
+                           |  | (Cardholders) |  |
+                           |  +---------------+  |
+                           |  | Transactions  |  | <-- Daily transaction files
+                           |  |   (Incoming)  |  |
+                           |  +---------------+  |
+                           |  |   Archive     |  | <-- Processed files moved here
+                           |  |  (Processed)  |  |
+                           |  +---------------+  |
+                           |  |   Spark-job   |  | <-- Location of spark-job.py
+                           |  +---------------+  |
+                           +----------+----------+
+                                      |
+                                      v
+                           +----------------------------+
+                           |                           	|
+                           |   GCP Composer            	|
+                           |  (Airflow DAG)            	|
+                           |  - File Sensor           	|
+                           |  - Run spark               |
+			                     |  - move file to archive    |     	        
+                           |                            |
+                           +----------+-----------------+
+                                      |
+                                      v
+                           +------------------------+
+                           |                        |
+                           |  GCP Dataproc          |
+                           |   Serverless           |
+                           |  (PySpark Job)         |
+                           |  - Processes daily     |
+                           |    transactions        |
+                           |  - Append data         |
+			                     |	  in BigQuery         |
+                           |    table               |
+                           |                        |
+                           +----------+-------------+
+                                      |
+                                      v
+                           +---------------------+
+                           |                     |
+                           |    BigQuery         |
+                           |   (Processed Data)  |
+                           |    For Analytics    |
+                           +---------------------+
