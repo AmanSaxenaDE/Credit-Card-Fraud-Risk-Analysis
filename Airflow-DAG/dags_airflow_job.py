@@ -52,7 +52,7 @@ with DAG(
         },
         "environment_config": {
             "execution_config": {
-                "service_account": "11111111-compute@developer.gserviceaccount.com",
+                "service_account": "11111111-compute@developer.gserviceaccount.com", # This is a dumy service account, use your actual gcp service account
                 "network_uri": "projects/<GCP project_id>/global/networks/default", # Replace <GCP project_id> with your GCP project id 
                 "subnetwork_uri": "projects/<GCP project_id>/regions/us-central1/subnetworks/default",
             }
